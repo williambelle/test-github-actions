@@ -13,7 +13,7 @@ fi
 echo -e ${GITHUB_REF#refs/heads/}
 curl --silent --request GET \
   --url $MILESTONES_URL \
-  --header "Authorization: Bearer ${GITHUB_TOKEN}"
+  --header "Authorization: token ${GITHUB_TOKEN}"
 NUMBER=`curl --silent --request GET \
   --url $MILESTONES_URL \
   --header "Authorization: Bearer ${GITHUB_TOKEN}" | jq -r ".[]|select(.title==\"v${GITHUB_REF#refs/heads/}\").number"`
@@ -27,6 +27,6 @@ fi
 
 curl --silent --request PATCH \
   --url $GITHUB_API_R/${GITHUB_REPOSITORY}/milestones/$NUMBER \
-  --header "Authorization: Bearer ${GITHUB_TOKEN}" \
+  --header "Authorization: token ${GITHUB_TOKEN}" \
   --header 'Content-Type: application/json' \
   --data '{"state":"closed"}'
