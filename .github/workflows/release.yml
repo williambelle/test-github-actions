@@ -11,8 +11,8 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
-      - name: Close Milestone
-        uses: WyriHaximus/github-action-close-milestone@0.1.0
-        env:
-          INPUT_NUMBER: 1
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: List milestones
+        run: |
+          curl --request GET \
+          --url https://api.github.com/repos/${{ github.repository }}/milestones?per_page=100 \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
