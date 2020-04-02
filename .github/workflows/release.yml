@@ -1,5 +1,4 @@
-on:
-  push: [push]
+on: [push]
 
 name: Release
 
