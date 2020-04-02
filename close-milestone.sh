@@ -10,9 +10,11 @@ if [ $(echo ${GITHUB_REPOSITORY} | wc -c) -eq 1 ] ; then
   exit 1
 fi
 
-echo ${GITHUB_REF#refs/heads/}
-NUMBER=`curl -s --url $MILESTONES_URL | jq -r ".[]|select(.title==\"v${GITHUB_REF#refs/heads/}\").number"`
-echo $NUMBER
+echo -e ${GITHUB_REF#refs/heads/}
+NUMBER=`curl --request GET \
+  --url $MILESTONES_URL \
+  --header "Authorization: Bearer ${GITHUB_TOKEN}" | jq -r ".[]|select(.title==\"v${GITHUB_REF#refs/heads/}\").number"`
+echo -e $NUMBER
 
 
 if [ $(echo $NUMBER | wc -c) -eq 1 ] ; then
