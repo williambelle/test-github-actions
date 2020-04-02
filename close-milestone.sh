@@ -10,7 +10,9 @@ if [ $(echo ${GITHUB_REPOSITORY} | wc -c) -eq 1 ] ; then
   exit 1
 fi
 
-NUMBER=`curl --url $MILESTONES_URL | jq -r ".[]|select(.title==\"v${GITHUB_REF}\").number"`
+NUMBER=`curl -s --url $MILESTONES_URL | jq -r ".[]|select(.title==\"v${GITHUB_REF}\").number"`
+echo $NUMBER
+
 
 if [ $(echo $NUMBER | wc -c) -eq 1 ] ; then
   echo -e "\033[31mMilestone number cannot be empty\033[0m"
