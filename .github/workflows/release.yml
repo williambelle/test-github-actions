@@ -13,5 +13,5 @@ jobs:
 
       - name: Close milestone
         run: ./close-milestone.sh
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
