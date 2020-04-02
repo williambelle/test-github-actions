@@ -11,7 +11,10 @@ if [ $(echo ${GITHUB_REPOSITORY} | wc -c) -eq 1 ] ; then
 fi
 
 echo -e ${GITHUB_REF#refs/heads/}
-NUMBER=`curl --request GET \
+curl --silent --request GET \
+  --url $MILESTONES_URL \
+  --header "Authorization: Bearer ${GITHUB_TOKEN}"
+NUMBER=`curl --silent --request GET \
   --url $MILESTONES_URL \
   --header "Authorization: Bearer ${GITHUB_TOKEN}" | jq -r ".[]|select(.title==\"v${GITHUB_REF#refs/heads/}\").number"`
 echo -e $NUMBER
@@ -22,7 +25,7 @@ if [ $(echo $NUMBER | wc -c) -eq 1 ] ; then
   exit 1
 fi
 
-curl --request PATCH \
+curl --silent --request PATCH \
   --url $GITHUB_API_R/${GITHUB_REPOSITORY}/milestones/$NUMBER \
   --header "Authorization: Bearer ${GITHUB_TOKEN}" \
   --header 'Content-Type: application/json' \
