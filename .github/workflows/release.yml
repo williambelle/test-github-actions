@@ -11,5 +11,7 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
-      - name: Close milestone
-        run: ./close-milestone.sh
+      - name: Close Milestone
+        uses: WyriHaximus/github-action-close-milestone@0.1.0
+        env:
+          INPUT_NUMBER: 1
