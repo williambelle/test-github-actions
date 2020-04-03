@@ -1,7 +1,4 @@
-on:
-  push:
-    tags:
-      - '*'
+on: [push]
 
 name: Release
 
@@ -13,16 +10,8 @@ jobs:
       
       - name: Clone repository
         uses: actions/checkout@v2
-      
-      - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
 
       - name: Close milestone
         run: ./close-milestone.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
