@@ -16,5 +16,5 @@ jobs:
       - name: Test tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          echo $GITHUB_REF_NAME
+          echo ${GITHUB_REF_NAME#v}
           echo $GITHUB_REF
