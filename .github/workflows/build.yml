@@ -8,6 +8,9 @@ jobs:
     name: Build
     
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Test push
         run: |
           echo $GITHUB_REF_NAME
